@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: mi-agenda
+    runtime: node
+    plan: free
+    rootDir: task-manager
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
