@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Agenda — Gestor de actividades</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-icon">🗓️</span>
+        <div>
+          <h1>Mi Agenda</h1>
+          <p class="subtitle" id="todayLabel"></p>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="btnNew">+ Nueva actividad</button>
+    </header>
+
+    <section class="stats" id="stats">
+      <div class="stat-card" data-filter="today">
+        <span class="stat-value" id="statToday">0</span>
+        <span class="stat-label">Hoy</span>
+      </div>
+      <div class="stat-card stat-danger" data-filter="overdue">
+        <span class="stat-value" id="statOverdue">0</span>
+        <span class="stat-label">Vencidas</span>
+      </div>
+      <div class="stat-card" data-filter="upcoming">
+        <span class="stat-value" id="statUpcoming">0</span>
+        <span class="stat-label">Próximos 7 días</span>
+      </div>
+      <div class="stat-card stat-success" data-filter="completed">
+        <span class="stat-value" id="statCompleted">0</span>
+        <span class="stat-label">Completadas</span>
+      </div>
+    </section>
+
+    <section class="filters">
+      <input type="search" id="fQuery" placeholder="Buscar por título, descripción o lugar..." />
+      <select id="fType">
+        <option value="">Todos los tipos</option>
+      </select>
+      <select id="fStatus">
+        <option value="">Todos los estados</option>
+      </select>
+      <input type="date" id="fDate" />
+      <button class="btn btn-ghost" id="btnClearFilters">Limpiar</button>
+    </section>
+
+    <main class="content">
+      <div id="emptyState" class="empty-state" hidden>
+        <p>No hay actividades que coincidan con los filtros.</p>
+        <button class="btn btn-primary" id="btnEmptyNew">Crear la primera actividad</button>
+      </div>
+      <div id="agenda" class="agenda"></div>
+    </main>
+  </div>
+
+  <dialog id="modal" class="modal">
+    <form id="activityForm" class="modal-form">
+      <h2 id="modalTitle">Nueva actividad</h2>
+      <input type="hidden" id="fId" />
+
+      <label>
+        Título *
+        <input type="text" id="fTitle" required maxlength="120" placeholder="Ej. Cita con el cardiólogo" />
+      </label>
+
+      <div class="row">
+        <label>
+          Tipo
+          <select id="fTypeInput"></select>
+        </label>
+        <label>
+          Prioridad
+          <select id="fPriority">
+            <option value="baja">Baja</option>
+            <option value="media" selected>Media</option>
+            <option value="alta">Alta</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="row">
+        <label>
+          Fecha *
+          <input type="date" id="fDateInput" required />
+        </label>
+        <label>
+          Hora
+          <input type="time" id="fTime" />
+        </label>
+      </div>
+
+      <label>
+        Lugar
+        <input type="text" id="fLocation" maxlength="150" placeholder="Ej. Clínica Central, Oficina, Zoom..." />
+      </label>
+
+      <label>
+        Descripción
+        <textarea id="fDescription" rows="2" maxlength="500"></textarea>
+      </label>
+
+      <label>
+        Notas
+        <textarea id="fNotes" rows="2" maxlength="500"></textarea>
+      </label>
+
+      <label>
+        Estado
+        <select id="fStatusInput"></select>
+      </label>
+
+      <p class="form-error" id="formError" hidden></p>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="btnCancel">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
